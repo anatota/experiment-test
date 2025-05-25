@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>კვლევის ტესტირების აპლიკაცია</title>
+    <style>
+        body {
+            font-family: 'DejaVu Sans', Arial, sans-serif;
+            margin: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .question, .oci-r {
+            margin-bottom: 20px;
+        }
+        .question label, .oci-r label {
+            display: block;
+            margin: 10px 0;
+        }
+        .confidence {
+            margin: 10px 0;
+        }
+        .real-time {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>კვლევის ტესტირების აპლიკაცია</h1>
+    <label for="participantId">მონაწილის ID:</label>
+    <input type="text" id="participantId" placeholder="შეიყვანეთ ID (მაგ. P001)" required>
+    
+    <h2>ზოგადი უნარების ტესტი</h2>
+    <div id="questions">
+        <div class="question" data-question-id="1" data-correct-answer="ა">
+            <p><strong>კითხვა 1:</strong> რომელია საქართველოს დედაქალაქი?</p>
+            <label><input type="radio" name="q1" value="ა"> ა) თბილისი</label>
+            <label><input type="radio" name="q1" value="ბ"> ბ) ქუთაისი</label>
+            <label><input type="radio" name="q1" value="გ"> გ) ბათუმი</label>
+            <label><input type="radio" name="q1" value="დ"> დ) გორი</label>
+            <div class="confidence">
+                <label>რამდენად თავდაჯერებული ხართ პასუხში? (1-10)</label>
+                <select name="confidence1">
+                    <option value="">აირჩიეთ</option>
+                    <option value="1">1 - საერთოდ არ ვარ</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10 - სრულიად თავდაჯერებული</option>
+                </select>
+            </div>
+            <div class="real-time">
+                <p>პასუხის ცვლილებების რაოდენობა: <span class="change-count">0</span></p>
+                <p>სწორი პასუხი იყო მონიშნული: <span class="correct-selected">არა</span></p>
+            </div>
+        </div>
+        <div class="question" data-question-id="2" data-correct-answer="გ">
+            <p><strong>კითხვა 2:</strong> 5 + 3 × 2 = ?</p>
+            <label><input type="radio" name="q2" value="ა"> ა) 16</label>
+            <label><input type="radio" name="q2" value="ბ"> ბ) 11</label>
+            <label><input type="radio" name="q2" value="გ"> გ) 11 (გამრავლება პირველად)</label>
+            <label><input type="radio" name="q2" value="დ"> დ) 8</label>
+            <div class="confidence">
+                <label>რამდენად თავდაჯერებული ხართ პასუხში? (1-10)</label>
+                <select name="confidence2">
+                    <option value="">აირჩიეთ</option>
+                    <option value="1">1 - საერთოდ არ ვარ</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10 - სრულიად თავდაჯერებული</option>
+                </select>
+            </div>
+            <div class="real-time">
+                <p>პასუხის ცვლილებების რაოდენობა: <span class="change-count">0</span></p>
+                <p>სწორი პასუხი იყო მონიშნული: <span class="correct-selected">არა</span></p>
+            </div>
+        </div>
+    </div>
+
+    <h2>OCI-R კითხვარი (მაგალითი)</h2>
+    <div id="oci-r">
+        <div class="oci-r">
+            <p><strong>1.</strong> ხშირად მაქვს ისეთი აზრები, რომლებიც მაწუხებს.</p>
+            <label><input type="radio" name="oci1" value="0"> 0 - საერთოდ არა</label>
+            <label><input type="radio" name="oci1" value="1"> 1 - ოდნავ</label>
+            <label><input type="radio" name="oci1" value="2"> 2 - ზომიერად</label>
+            <label><input type="radio" name="oci1" value="3"> 3 - ხშირად</label>
+            <label><input type="radio" name="oci1" value="4"> 4 - თითქმის ყოველთვის</label>
+        </div>
+        <div class="oci-r">
+            <p><strong>2.</strong> ვამოწმებ, გამორთულია თუ არა ღუმელი, რამდენჯერმე.</p>
+            <label><input type="radio" name="oci2" value="0"> 0 - საერთოდ არა</label>
+            <label><input type="radio" name="oci2" value="1"> 1 - ოდნავ</label>
+            <label><input type="radio" name="oci2" value="2"> 2 - ზომიერად</label>
+            <label><input type="radio" name="oci2" value="3"> 3 - ხშირად</label>
+            <label><input type="radio" name="oci2" value="4"> 4 - თითქმის ყოველთვის</label>
+        </div>
+    </div>
+
+    <button onclick="submitTest()">ტესტის დასრულება</button>
+
+    <h2>შედეგები</h2>
+    <div id="results"></div>
+
+    <script>
+        let participantData = {
+            id: '',
+            ociScore: 0,
+            group: '',
+            answers: []
+        };
+
+        // Track answer changes and correct selections
+        const questions = document.querySelectorAll('.question');
+        questions.forEach(question => {
+            const questionId = question.getAttribute('data-question-id');
+            const correctAnswer = question.getAttribute('data-correct-answer');
+            let changeCount = 0;
+            let correctSelected = false;
+            let lastAnswer = '';
+
+            const radios = question.querySelectorAll(`input[name="q${questionId}"]`);
+            radios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    if (lastAnswer !== radio.value) {
+                        changeCount++;
+                        lastAnswer = radio.value;
+                        question.querySelector('.change-count').textContent = changeCount;
+                        if (radio.value === correctAnswer) {
+                            correctSelected = true;
+                            question.querySelector('.correct-selected').textContent = 'დიახ';
+                        }
+                        // Store in participantData
+                        const existingAnswer = participantData.answers.find(a => a.questionId === questionId);
+                        if (existingAnswer) {
+                            existingAnswer.changeCount = changeCount;
+                            existingAnswer.correctSelected = correctSelected;
+                            existingAnswer.selectedAnswer = radio.value;
+                        } else {
+                            participantData.answers.push({
+                                questionId,
+                                selectedAnswer: radio.value,
+                                confidence: '',
+                                correctSelected,
+                                changeCount,
+                                isCorrect: radio.value === correctAnswer
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Track confidence
+            const confidenceSelect = question.querySelector(`select[name="confidence${questionId}"]`);
+            confidenceSelect.addEventListener('change', () => {
+                const existingAnswer = participantData.answers.find(a => a.questionId === questionId);
+                if (existingAnswer) {
+                    existingAnswer.confidence = confidenceSelect.value;
+                }
+            });
+        });
+
+        // OCI-R scoring
+        const ociRadios = document.querySelectorAll('#oci-r input[type="radio"]');
+        ociRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                let totalScore = 0;
+                document.querySelectorAll('#oci-r input[type="radio"]:checked').forEach(checked => {
+                    totalScore += parseInt(checked.value);
+                });
+                participantData.ociScore = totalScore;
+                participantData.group = totalScore >= 4 ? 'მაღალი' : 'დაბალი';
+            });
+        });
+
+        function submitTest() {
+            participantData.id = document.getElementById('participantId').value || 'P001';
+            let resultsHtml = '<table>';
+            resultsHtml += '<tr><th>მონაწილის ID</th><th>OCI-R ქულა</th><th>ჯგუფი</th><th>კითხვის ID</th><th>გაცემული პასუხი</th><th>თავდაჯერებულობის ქულა</th><th>სწორი პასუხი მონიშნული</th><th>ცვლილებების რაოდენობა</th><th>საბოლოო პასუხი სწორია</th></tr>';
+            
+            participantData.answers.forEach(answer => {
+                const correctAnswer = document.querySelector(`.question[data-question-id="${answer.questionId}"]`).getAttribute('data-correct-answer');
+                resultsHtml += `<tr>
+                    <td>${participantData.id}</td>
+                    <td>${participantData.ociScore}</td>
+                    <td>${participantData.group}</td>
+                    <td>${answer.questionId}</td>
+                    <td>${answer.selectedAnswer || '-'}</td>
+                    <td>${answer.confidence || '-'}</td>
+                    <td>${answer.correctSelected ? 'დიახ' : 'არა'}</td>
+                    <td>${answer.changeCount}</td>
+                    <td>${answer.isCorrect ? 'დიახ' : 'არა'}</td>
+                </tr>`;
+            });
+
+            resultsHtml += '</table>';
+            document.getElementById('results').innerHTML = resultsHtml;
+
+            // Prevent further answer changes
+            document.querySelectorAll('input[type="radio"], select').forEach(element => {
+                element.disabled = true;
+            });
+            document.querySelector('button').disabled = true;
+        }
+    </script>
+</body>
+</html>
